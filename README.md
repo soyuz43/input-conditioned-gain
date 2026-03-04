@@ -1,8 +1,8 @@
-# Beyond Circuits
+# Instruction-Conditioned Separation & Displacement — Qwen2.5-7B
 
-Falsifiable Interpretability via Jacobian Gain Geometry
+Falsifiable Interpretability
 
-Interactive preprint exploring Input-Conditioned Jacobian Gain Geometry in Qwen2.5-7B.
+Interactive preprint exploring Instruction-Conditioned Separation & Displacement in Qwen2.5-7B.
 
 ## Live Page
 
