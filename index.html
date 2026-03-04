@@ -2,8 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beyond Circuits — Jacobian Gain Geometry v3</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>
+      Instruction-Conditioned Separation & Displacement — Qwen2.5-7B
+    </title>
     <link
       href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap"
       rel="stylesheet"
@@ -52,18 +54,18 @@
         z-index: 0;
       }
       .container {
-        max-width: 860px;
+        max-width: 900px;
         margin: 0 auto;
         padding: 0 32px;
         position: relative;
         z-index: 1;
       }
 
-      /* ── Header ── */
+      /* Header */
       header {
-        padding: 80px 0 48px;
+        padding: 72px 0 44px;
         border-bottom: 1px solid var(--rule);
-        margin-bottom: 60px;
+        margin-bottom: 48px;
       }
       .jlabel {
         font-family: "JetBrains Mono", monospace;
@@ -71,7 +73,7 @@
         letter-spacing: 0.25em;
         color: var(--accent);
         text-transform: uppercase;
-        margin-bottom: 28px;
+        margin-bottom: 18px;
         display: flex;
         align-items: center;
         gap: 12px;
@@ -88,24 +90,20 @@
         font-weight: 500;
         line-height: 1.2;
         letter-spacing: -0.01em;
-        margin-bottom: 28px;
-      }
-      h1 em {
-        font-style: italic;
-        color: var(--accent);
+        margin-bottom: 18px;
       }
       .subtitle {
         font-family: "JetBrains Mono", monospace;
         font-size: 11px;
         color: var(--ink-dim);
         letter-spacing: 0.08em;
-        padding-bottom: 28px;
+        padding-bottom: 18px;
         border-bottom: 1px solid var(--rule);
-        margin-bottom: 28px;
+        margin-bottom: 18px;
       }
       .meta-row {
         display: flex;
-        gap: 24px;
+        gap: 18px;
         flex-wrap: wrap;
       }
       .meta-item {
@@ -125,17 +123,17 @@
         color: var(--ink-dim);
       }
 
-      /* ── Abstract ── */
+      /* Abstract box */
       .abstract-box {
         background: var(--bg-card);
         border: 1px solid var(--rule);
         border-left: 3px solid var(--accent);
-        padding: 24px 28px;
-        margin-bottom: 60px;
+        padding: 22px 26px;
+        margin-bottom: 44px;
         position: relative;
       }
       .abstract-box::before {
-        content: "ABSTRACT";
+        content: "SCOPE";
         position: absolute;
         top: -9px;
         left: 16px;
@@ -150,12 +148,18 @@
         font-size: 15px;
         line-height: 1.7;
         color: var(--ink-dim);
+      }
+      strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      em {
         font-style: italic;
       }
 
-      /* ── Sections ── */
+      /* Sections */
       section {
-        margin-bottom: 68px;
+        margin-bottom: 56px;
         opacity: 0;
         transform: translateY(16px);
         transition:
@@ -170,8 +174,8 @@
         display: flex;
         align-items: baseline;
         gap: 14px;
-        margin-bottom: 24px;
-        padding-bottom: 14px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
         border-bottom: 1px solid var(--rule);
       }
       .sn {
@@ -188,7 +192,7 @@
       h3 {
         font-size: 17px;
         font-weight: 500;
-        margin: 28px 0 10px;
+        margin: 22px 0 10px;
         font-style: italic;
       }
       p {
@@ -198,119 +202,77 @@
         margin-bottom: 0;
       }
 
-      /* ── Math ── */
-      .math-block {
-        background: var(--bg-lift);
-        border: 1px solid var(--rule);
-        padding: 18px 22px;
-        margin: 20px 0;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 15px;
-        color: var(--accent-cold);
-        overflow-x: auto;
-        position: relative;
-      }
-      .math-block .mlabel {
-        position: absolute;
-        top: 6px;
-        right: 10px;
-        font-size: 9px;
-        color: var(--ink-faint);
-        letter-spacing: 0.1em;
-      }
-
-      /* ── Invariant box ── */
-      .inv-box {
+      /* Method box */
+      .method-box {
         background: linear-gradient(
           135deg,
-          rgba(200, 169, 110, 0.06) 0%,
+          rgba(110, 160, 200, 0.06) 0%,
           transparent 100%
         );
-        border: 1px solid rgba(200, 169, 110, 0.25);
-        padding: 24px 28px;
-        margin: 28px 0;
-        position: relative;
+        border: 1px solid rgba(110, 160, 200, 0.25);
+        border-left: 3px solid var(--accent-cold);
+        padding: 20px 24px;
+        margin: 18px 0;
       }
-      .inv-box::before {
-        content: "◆ INVARIANT 3";
-        position: absolute;
-        top: -9px;
-        left: 16px;
-        background: var(--bg);
-        padding: 0 8px;
+      .method-box .label {
         font-family: "JetBrains Mono", monospace;
         font-size: 9px;
         letter-spacing: 0.2em;
-        color: var(--accent);
+        text-transform: uppercase;
+        color: var(--accent-cold);
+        margin-bottom: 10px;
+      }
+      .method-box .quote {
+        font-size: 17px;
+        font-style: italic;
+        color: var(--ink-dim);
+        line-height: 1.7;
       }
 
-      /* ── Sigma grid ── */
-      .sg {
+      /* Run grid */
+      .run-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-        margin: 24px 0;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 18px 0;
       }
-      .sc {
+      .run-cell {
         background: var(--bg-card);
         border: 1px solid var(--rule);
-        padding: 18px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        transition: border-color 0.25s;
+        padding: 14px 16px;
       }
-      .sc:hover {
-        border-color: var(--accent);
+      .run-cell.base-cell {
+        border-color: rgba(176, 110, 200, 0.3);
       }
-      .sc::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-      }
-      .sc.ex::after {
-        background: var(--accent-hot);
-      }
-      .sc.nt::after {
-        background: var(--accent-cold);
-      }
-      .sc.co::after {
-        background: var(--accent-green);
-      }
-      .ss {
+      .rc-label {
         font-family: "JetBrains Mono", monospace;
-        font-size: 18px;
-        margin-bottom: 6px;
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 8px;
       }
-      .sc.ex .ss {
-        color: var(--accent-hot);
+      .base-cell .rc-label {
+        color: var(--accent-purple);
       }
-      .sc.nt .ss {
-        color: var(--accent-cold);
+      .rc-val {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--ink);
       }
-      .sc.co .ss {
-        color: var(--accent-green);
-      }
-      .slabel {
-        font-size: 13px;
-        font-weight: 500;
-        margin-bottom: 4px;
-      }
-      .sdesc {
-        font-size: 11px;
+      .rc-sub {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
         color: var(--ink-dim);
-        font-family: "JetBrains Mono", monospace;
+        margin-top: 3px;
       }
 
-      /* ── Toggle ── */
+      /* Charts */
       .toggle {
         display: flex;
         border: 1px solid var(--rule);
         width: fit-content;
-        margin: 18px 0;
+        margin: 14px 0 10px;
         flex-wrap: wrap;
       }
       .tbtn {
@@ -332,9 +294,10 @@
         background: var(--bg-lift);
         color: var(--ink);
       }
+
       .panel {
         display: none;
-        animation: fi 0.3s ease;
+        animation: fi 0.25s ease;
       }
       .panel.act {
         display: block;
@@ -350,12 +313,11 @@
         }
       }
 
-      /* ── Chart container ── */
       .lv {
-        margin: 20px 0;
+        margin: 14px 0;
         background: var(--bg-card);
         border: 1px solid var(--rule);
-        padding: 24px;
+        padding: 22px;
       }
       .lvt {
         font-family: "JetBrains Mono", monospace;
@@ -363,7 +325,7 @@
         letter-spacing: 0.18em;
         color: var(--accent);
         text-transform: uppercase;
-        margin-bottom: 18px;
+        margin-bottom: 14px;
       }
       .lc {
         position: relative;
@@ -388,7 +350,19 @@
       .lb:hover {
         border-color: var(--accent);
       }
+
+      /* Highlight classes */
+      .lb.bp {
+        /* gold */
+        background: linear-gradient(
+          to top,
+          rgba(200, 169, 110, 0.32),
+          rgba(200, 169, 110, 0.08)
+        );
+        border-color: var(--accent);
+      }
       .lb.pa {
+        /* cold */
         background: linear-gradient(
           to top,
           rgba(110, 160, 200, 0.3),
@@ -397,6 +371,7 @@
         border-color: var(--accent-cold);
       }
       .lb.pn {
+        /* hot */
         background: linear-gradient(
           to top,
           rgba(200, 110, 110, 0.3),
@@ -404,15 +379,8 @@
         );
         border-color: var(--accent-hot);
       }
-      .lb.bp {
-        background: linear-gradient(
-          to top,
-          rgba(200, 169, 110, 0.32),
-          rgba(200, 169, 110, 0.08)
-        );
-        border-color: var(--accent);
-      }
       .lb.pp {
+        /* purple */
         background: linear-gradient(
           to top,
           rgba(176, 110, 200, 0.3),
@@ -420,6 +388,7 @@
         );
         border-color: var(--accent-purple);
       }
+
       .ll {
         display: flex;
         gap: 3px;
@@ -463,12 +432,12 @@
         margin-top: 6px;
       }
 
-      /* ── Dual chart (instruct vs base side-by-side) ── */
+      /* Side-by-side */
       .dual-chart {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14px;
-        margin: 20px 0;
+        margin: 14px 0;
       }
       .dual-chart .lv {
         margin: 0;
@@ -493,11 +462,11 @@
         border: 1px solid rgba(176, 110, 200, 0.2);
       }
 
-      /* ── Tables ── */
+      /* Tables */
       .rt {
         width: 100%;
         border-collapse: collapse;
-        margin: 24px 0;
+        margin: 18px 0;
         font-size: 14px;
       }
       .rt th {
@@ -535,121 +504,7 @@
         color: var(--accent-green);
       }
 
-      /* ── Norm growth ── */
-      .ng {
-        margin: 24px 0;
-        background: var(--bg-card);
-        border: 1px solid var(--rule);
-        padding: 22px 26px;
-      }
-      .ntrack {
-        position: relative;
-        height: 55px;
-        margin: 18px 0 6px;
-      }
-      .nline {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: var(--rule);
-      }
-      .nfill-i {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 2px;
-        background: linear-gradient(
-          to right,
-          var(--accent-cold),
-          var(--accent-hot)
-        );
-        transition: width 1.2s ease;
-        width: 0%;
-      }
-      .nfill-b {
-        position: absolute;
-        bottom: 4px;
-        left: 0;
-        height: 2px;
-        background: linear-gradient(
-          to right,
-          rgba(176, 110, 200, 0.6),
-          var(--accent-purple)
-        );
-        transition: width 1.4s ease;
-        width: 0%;
-      }
-      .ndot {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        border: 2px solid;
-        background: var(--bg);
-        transform: translateX(-50%);
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-      .ndot:hover {
-        transform: translateX(-50%) scale(1.4);
-      }
-      .ndot.i {
-        border-color: var(--accent);
-        bottom: -5px;
-      }
-      .ndot.b {
-        border-color: var(--accent-purple);
-        bottom: 0px;
-      }
-      .ndlabel {
-        position: absolute;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
-        transform: translateX(-50%);
-        white-space: nowrap;
-      }
-      .ndlabel.i {
-        bottom: 14px;
-        color: var(--accent);
-      }
-      .ndlabel.b {
-        bottom: 20px;
-        color: var(--accent-purple);
-      }
-
-      /* ── Callout boxes ── */
-      .anomaly-box {
-        background: linear-gradient(
-          135deg,
-          rgba(200, 110, 110, 0.06) 0%,
-          transparent 100%
-        );
-        border: 1px solid rgba(200, 110, 110, 0.3);
-        border-left: 3px solid var(--accent-hot);
-        padding: 22px 26px;
-        margin: 28px 0;
-        position: relative;
-      }
-      .anomaly-box::before {
-        content: "⚠ ANOMALY";
-        position: absolute;
-        top: -9px;
-        left: 16px;
-        background: var(--bg);
-        padding: 0 8px;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.2em;
-        color: var(--accent-hot);
-      }
-      .anomaly-box p {
-        font-size: 14px;
-        line-height: 1.7;
-        color: var(--ink-dim);
-      }
-
+      /* Callouts */
       .finding-box {
         background: linear-gradient(
           135deg,
@@ -658,12 +513,12 @@
         );
         border: 1px solid rgba(110, 200, 138, 0.25);
         border-left: 3px solid var(--accent-green);
-        padding: 22px 26px;
-        margin: 28px 0;
+        padding: 20px 24px;
+        margin: 18px 0;
         position: relative;
       }
       .finding-box::before {
-        content: "◆ KEY FINDING";
+        content: "◆ EMPIRICAL SUMMARY";
         position: absolute;
         top: -9px;
         left: 16px;
@@ -674,26 +529,20 @@
         letter-spacing: 0.2em;
         color: var(--accent-green);
       }
-      .finding-box p {
-        font-size: 14px;
-        line-height: 1.7;
-        color: var(--ink-dim);
-      }
-
-      .crit-box {
+      .warn-box {
         background: linear-gradient(
           135deg,
-          rgba(176, 110, 200, 0.06) 0%,
+          rgba(200, 110, 110, 0.06) 0%,
           transparent 100%
         );
-        border: 1px solid rgba(176, 110, 200, 0.25);
-        border-left: 3px solid var(--accent-purple);
-        padding: 22px 26px;
-        margin: 28px 0;
+        border: 1px solid rgba(200, 110, 110, 0.3);
+        border-left: 3px solid var(--accent-hot);
+        padding: 20px 24px;
+        margin: 18px 0;
         position: relative;
       }
-      .crit-box::before {
-        content: "⊘ CRITERION A — PARTIAL SATISFACTION";
+      .warn-box::before {
+        content: "⚠ CLAIM SCOPE";
         position: absolute;
         top: -9px;
         left: 16px;
@@ -702,117 +551,10 @@
         font-family: "JetBrains Mono", monospace;
         font-size: 9px;
         letter-spacing: 0.2em;
-        color: var(--accent-purple);
-      }
-      .crit-box p {
-        font-size: 14px;
-        line-height: 1.7;
-        color: var(--ink-dim);
-      }
-
-      /* ── Fact grid ── */
-      .fg {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-        margin: 24px 0;
-      }
-      .fc {
-        background: var(--bg-card);
-        border: 1px solid var(--rule);
-        border-top: 2px solid var(--accent-hot);
-        padding: 18px;
-      }
-      .fc .flabel {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.2em;
         color: var(--accent-hot);
-        margin-bottom: 8px;
-        text-transform: uppercase;
-      }
-      .fc p {
-        font-size: 13px;
-        color: var(--ink-dim);
-        line-height: 1.6;
       }
 
-      /* ── Run grid ── */
-      .run-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin: 20px 0;
-      }
-      .run-cell {
-        background: var(--bg-card);
-        border: 1px solid var(--rule);
-        padding: 14px 16px;
-      }
-      .run-cell.base-cell {
-        border-color: rgba(176, 110, 200, 0.3);
-      }
-      .rc-label {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.18em;
-        color: var(--accent);
-        text-transform: uppercase;
-        margin-bottom: 8px;
-      }
-      .base-cell .rc-label {
-        color: var(--accent-purple);
-      }
-      .rc-val {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 12px;
-        color: var(--ink);
-      }
-      .rc-sub {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
-        color: var(--ink-dim);
-        margin-top: 3px;
-      }
-
-      /* ── Norm data block ── */
-      .norm-data {
-        background: var(--bg-card);
-        border: 1px solid var(--rule);
-        padding: 18px 22px;
-        margin: 18px 0;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 12px;
-      }
-
-      /* ── Conclusion ── */
-      .conc {
-        background: linear-gradient(
-          135deg,
-          var(--bg-card) 0%,
-          rgba(200, 169, 110, 0.03) 100%
-        );
-        border: 1px solid var(--rule);
-        border-top: 2px solid var(--accent);
-        padding: 32px 36px;
-        margin-top: 36px;
-      }
-      footer {
-        border-top: 1px solid var(--rule);
-        padding: 36px 0 56px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      .fsig,
-      .fmod {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
-        color: var(--ink-faint);
-        letter-spacing: 0.08em;
-      }
+      /* Tooltip */
       .tooltip {
         position: fixed;
         background: var(--bg-lift);
@@ -826,246 +568,143 @@
         transition: opacity 0.12s;
         z-index: 1000;
       }
-      strong {
-        color: var(--ink);
-        font-weight: 600;
-      }
-      em {
-        font-style: italic;
-      }
-      .cbadge {
-        display: inline-block;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.15em;
-        background: rgba(110, 200, 138, 0.12);
-        border: 1px solid rgba(110, 200, 138, 0.35);
-        color: var(--accent-green);
-        padding: 2px 8px;
-        margin-left: 8px;
-        vertical-align: middle;
-        text-transform: uppercase;
-      }
-      .nbadge {
-        display: inline-block;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.15em;
-        background: rgba(176, 110, 200, 0.12);
-        border: 1px solid rgba(176, 110, 200, 0.35);
-        color: var(--accent-purple);
-        padding: 2px 8px;
-        margin-left: 8px;
-        vertical-align: middle;
-        text-transform: uppercase;
-      }
+
       code {
         font-family: "JetBrains Mono", monospace;
         font-size: 12px;
         color: var(--ink-dim);
       }
-      @media (max-width: 640px) {
-        .sg {
-          grid-template-columns: 1fr;
-        }
-        .fg {
-          grid-template-columns: 1fr;
-        }
+
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 30px 0 52px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .fsig,
+      .fmod {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-faint);
+        letter-spacing: 0.08em;
+      }
+
+      @media (max-width: 720px) {
         .dual-chart {
           grid-template-columns: 1fr;
         }
         .run-grid {
           grid-template-columns: 1fr 1fr;
         }
-        .meta-row {
-          gap: 16px;
+      }
+      @media (max-width: 520px) {
+        .run-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
   </head>
+
   <body>
     <div class="tooltip" id="tt"></div>
     <div class="container">
       <!-- ═══════════════ HEADER ═══════════════ -->
       <header>
-        <div class="jlabel">
-          Mechanistic Interpretability · Preprint ·
-          <span style="color: var(--accent-green); margin-left: 4px"
-            >v3 — Base Model Comparison Added</span
-          >
-        </div>
-        <h1>
-          Beyond Circuits: Falsifiable Interpretability via
-          <em>Jacobian Gain Geometry</em> and the Case of Verbosity Control
-        </h1>
+        <div class="jlabel">Mechanistic Measurements · Interactive Summary</div>
+        <h1>Instruction-Conditioned Separation & Displacement Across Layers</h1>
         <div class="subtitle">
-          Qwen2.5-7B-Instruct (3 runs) + Qwen2.5-7B base (1 run) · 4-bit NF4 /
-          8-bit INT8 / 8-bit INT8+FP16 · Displacement Vector Norms · AUC
-          Separability
+          Qwen2.5-7B-Instruct (3 runs) + Qwen2.5-7B base (1 run) · TriviaQA
+          slice · Layerwise AUC separability + displacement vector norms
         </div>
         <div class="meta-row">
           <div class="meta-item">
-            <span class="ml">Instruct Model</span
-            ><span class="mv">Qwen2.5-7B-Instruct</span>
+            <span class="ml">Instruct Model</span>
+            <span class="mv">Qwen2.5-7B-Instruct</span>
           </div>
           <div class="meta-item">
-            <span class="ml">Base Model</span
-            ><span class="mv" style="color: var(--accent-purple)"
+            <span class="ml">Base Model</span>
+            <span class="mv" style="color: var(--accent-purple)"
               >Qwen2.5-7B (base)</span
             >
           </div>
           <div class="meta-item">
-            <span class="ml">Primary Claim</span
-            ><span class="mv"
-              >Layer 6 / Layer 26 Bifurcation — Instruct-Specific</span
-            >
+            <span class="ml">Total Runs</span>
+            <span class="mv">4 (Mar 01–04 2026)</span>
           </div>
           <div class="meta-item">
-            <span class="ml">Total Runs</span
-            ><span class="mv">4 (Mar 01–04 2026)</span>
+            <span class="ml">Metrics</span>
+            <span class="mv">AUC (linear separability) · ‖v*‖ (norm)</span>
           </div>
         </div>
       </header>
 
-      <!-- ═══════════════ ABSTRACT ═══════════════ -->
+      <!-- ═══════════════ SCOPE ═══════════════ -->
       <div class="abstract-box">
         <p>
-          We operationalize a falsifiable account of transformer behavior via
-          <strong
-            >displacement vector norms and linear separability (AUC)</strong
-          >
-          across the Verbose ↔ Concise behavioral transition in
-          Qwen2.5-7B-Instruct. Three independent quantization runs reveal a
-          bifurcated geometry: maximum separability at Layer 6 (AUC = 1.0 exact)
-          and maximum norm at Layer 26 (~172, canonical), a ~47× amplification.
-          A fourth run on the
-          <strong>same-architecture base model</strong> (Qwen2.5-7B, un-tuned)
-          using an identical protocol acts as a null-model control. The base
-          model <em>retains the Layer 26 norm peak</em> but
-          <strong>loses the Layer 6 separability focal point entirely</strong>,
-          with dramatically lower Layer 26 norms (~73 vs ~172 canonical) and AUC
-          degradation at middle layers absent in the instruct model. These
-          results indicate the bifurcated topology is an
-          <strong>instruction-tuning-specific property</strong>, not an
-          architectural artifact — partially satisfying Criterion A (null-model
-          parity) while sharpening the scope of the primary claim.
+          <strong>This page is scoped to what was measured:</strong> layerwise
+          linear separability (AUC) between two behavioral conditions (“Verbose”
+          vs “Concise”) and the norm of the corresponding displacement vector
+          <code>v*</code>, sampled at specific layers and interpolated to 28
+          layers for visualization.
+        </p>
+        <p style="margin-top: 10px">
+          <strong>This page does not claim</strong> to identify circuits,
+          features, or a unique internal mechanism. Any mechanistic
+          interpretation is treated as a hypothesis layered on top of the
+          measurements.
         </p>
       </div>
 
-      <!-- ═══════════════ §I ═══════════════ -->
+      <!-- ═══════════════ § I ═══════════════ -->
       <section id="s1">
         <div class="sh">
           <span class="sn">§ I</span>
-          <h2>The Methodological Boundary Condition</h2>
+          <h2>Methodological Condition (Non-Metaphysical Constraint)</h2>
         </div>
+
+        <div class="method-box">
+          <div class="label">Methodological condition</div>
+          <div class="quote">
+            “A claim about a transformer is only explanatory to the extent it
+            can be expressed in front-to-back transformer dynamics.”
+          </div>
+        </div>
+
         <p>
-          Current mechanistic interpretability frequently relies on
-          <strong>"circuits"</strong> and
-          <strong>"features"</strong>—abstractions that often fail to provide
-          object identity. If two researchers can observe the same subgraph and
-          derive different mental models of the underlying computation without
-          an experimental way to adjudicate between them, the framework is not
-          scientific; it is <em>hermeneutic</em>.
+          In practice, this means: (1) prefer measurements that are directly
+          tied to model states across layers; (2) treat stories about “what the
+          model is doing” as hypotheses unless they are constrained by such
+          measurements; (3) explicitly separate <em>what was measured</em> from
+          <em>what might explain it</em>.
         </p>
-        <div
-          style="
-            background: rgba(110, 160, 200, 0.04);
-            border: 1px solid rgba(110, 160, 200, 0.25);
-            padding: 22px 26px;
-            margin: 24px 0;
-          "
-        >
-          <p
-            style="
-              font-size: 17px;
-              font-style: italic;
-              color: var(--ink-dim);
-              line-height: 1.7;
-            "
-          >
-            "Any claim about a transformer that cannot be expressed in
-            front-to-back transformer dynamics is not an explanation of a
-            transformer."
+
+        <div class="warn-box">
+          <p>
+            <strong>Important:</strong> The “input-conditioned Jacobian gain
+            geometry” framing remains an operating hypothesis. This document
+            keeps it as a <em>motivation</em> for why layerwise dynamics matter,
+            but it is not asserted as “the explanation” for the results.
           </p>
         </div>
-        <p>
-          To satisfy this, we must move from storytelling to
-          <strong>system identification</strong>. The base model comparison
-          introduced in this version allows us to distinguish properties of the
-          <em>learned flow</em> from properties of the <em>architecture</em>.
-        </p>
       </section>
 
-      <!-- ═══════════════ §II ═══════════════ -->
+      <!-- ═══════════════ § II ═══════════════ -->
       <section id="s2">
         <div class="sh">
           <span class="sn">§ II</span>
-          <h2>Invariant 3: Input-Conditioned Jacobian Gain Geometry</h2>
+          <h2>Experimental Summary</h2>
         </div>
-        <p>
-          We treat the transformer as a dynamical system defined by a layer map:
-        </p>
-        <div class="math-block">
-          h<sub>ℓ+1</sub> = f<sub>ℓ</sub>(h<sub>ℓ</sub> ; x)<span class="mlabel"
-            >layer map</span
-          >
-        </div>
-        <div class="math-block">
-          J<sub>ℓ</sub>(x) = ∂h<sub>ℓ+1</sub> / ∂h<sub>ℓ</sub> |<sub>x</sub
-          ><span class="mlabel">Jacobian</span>
-        </div>
-        <div class="sg">
-          <div class="sc ex">
-            <div class="ss">σᵢ &gt; 1</div>
-            <div class="slabel">Expansive</div>
-            <div class="sdesc">Local amplification</div>
-          </div>
-          <div class="sc nt">
-            <div class="ss">σᵢ ≈ 1</div>
-            <div class="slabel">Near-Neutral</div>
-            <div class="sdesc">Norm preservation</div>
-          </div>
-          <div class="sc co">
-            <div class="ss">σᵢ &lt; 1</div>
-            <div class="slabel">Contractive</div>
-            <div class="sdesc">Local damping</div>
-          </div>
-        </div>
-        <div class="inv-box">
-          <p style="font-size: 16px; color: var(--ink-dim); line-height: 1.7">
-            <strong style="color: var(--ink)">The Claim:</strong> Trained
-            transformers exhibit structured, anisotropic gain geometry where
-            behavior-relevant steering corresponds to residing in
-            input-conditioned <em>expansive</em> or
-            <em>contractive</em> manifolds. The base model comparison allows us
-            to distinguish trained gain structure from architectural priors.
-          </p>
-          <p
-            style="
-              margin-top: 10px;
-              font-family: &quot;JetBrains Mono&quot;, monospace;
-              font-size: 12px;
-              color: var(--accent-hot);
-            "
-          >
-            ✗ FALSIFIABLE: If the base model shows identical geometry, the
-            result is architectural, not learned.
-          </p>
-        </div>
-      </section>
 
-      <!-- ═══════════════ §III ═══════════════ -->
-      <section id="s3">
-        <div class="sh">
-          <span class="sn">§ III</span>
-          <h2>Experimental Design</h2>
-        </div>
         <p>
-          Four independent runs were conducted on identical dataset splits
-          (TriviaQA, 1200 questions, 800 train / 400 eval, seed 42,
-          <code>slice_hash: 396225b6…</code>). The first three use the
-          instruction-tuned model; the fourth uses the same-architecture base
-          model as a null-model control.
+          Four runs were conducted on identical dataset splits (TriviaQA, 1200
+          questions, 800 train / 400 eval, seed 42,
+          <code>slice_hash: 396225b6…</code>). Three runs use
+          <code>Qwen2.5-7B-Instruct</code> under different quantization regimes.
+          One run uses the same-architecture base model <code>Qwen2.5-7B</code>
+          as a null-model control with matched quantization to one instruct run.
         </p>
 
         <div class="run-grid">
@@ -1089,40 +728,46 @@
             <div class="rc-val" style="color: var(--accent-purple)">
               Base · 8-bit INT8+FP16
             </div>
-            <div class="rc-sub">Qwen2.5-7B · null control</div>
+            <div class="rc-sub">Null control (same architecture)</div>
           </div>
         </div>
 
-        <p>
-          The base run uses <code>Qwen/Qwen2.5-7B</code> (no instruction tuning)
-          with the same quantization scheme as run _005558, making it a matched
-          comparison against that instruct run. Note the base model uses
-          <code>eos_token_id: 151643</code> (vs 151645 for instruct), confirming
-          distinct tokenizer configurations consistent with independent
-          training.
-        </p>
+        <div class="finding-box">
+          <p>
+            <strong>Empirical pattern (as reported):</strong> In the instruct
+            model, separability peaks early (Layer 6 / Layer 9 depending on
+            prompt family), while displacement norm peaks late (Layer 26). In
+            the base model, the Layer 26 norm peak persists but the early
+            separability focal point is absent.
+          </p>
+        </div>
       </section>
 
-      <!-- ═══════════════ §IV ═══════════════ -->
-      <section id="s4">
+      <!-- ═══════════════ § III ═══════════════ -->
+      <section id="s3">
         <div class="sh">
-          <span class="sn">§ IV</span>
-          <h2>Results I: Instruct Model Geometry</h2>
+          <span class="sn">§ III</span>
+          <h2>Interactive Results</h2>
         </div>
 
-        <div class="toggle">
-          <button class="tbtn act" onclick="sw('auc_i', this, 'tog1')">
+        <h3>Instruct Model (Representative Run)</h3>
+        <div class="toggle" data-toggle="tog-instruct">
+          <button
+            class="tbtn act"
+            data-panel="auc_i"
+            data-toggle="tog-instruct"
+          >
             AUC — Instruct
           </button>
-          <button class="tbtn" onclick="sw('norm_i', this, 'tog1')">
-            Norm — Instruct
+          <button class="tbtn" data-panel="norm_i" data-toggle="tog-instruct">
+            ‖v*‖ — Instruct
           </button>
         </div>
 
         <div class="panel act" id="panel-auc_i">
           <div class="lv">
             <div class="lvt">
-              AUC by Layer — Instruct · Canonical prompt · Run _225321 (8-bit)
+              AUC by Layer — Instruct · canonical prompt · Run _225321
             </div>
             <div class="lc"><div class="lbc" id="auc-bars-i"></div></div>
             <div class="ll" id="auc-labels-i"></div>
@@ -1135,7 +780,7 @@
                     background: rgba(200, 169, 110, 0.15);
                   "
                 ></div>
-                AUC = 1.0 from Layer 6 · canonical / phrase_prepend
+                Highlight: Layer 6 (AUC = 1.0)
               </div>
               <div class="vli">
                 <div
@@ -1145,12 +790,11 @@
                     background: rgba(110, 160, 200, 0.15);
                   "
                 ></div>
-                AUC = 1.0 from Layer 9 · word families
+                Highlight: Layer 9 (AUC = 1.0)
               </div>
             </div>
             <div class="lan">
-              Perfect separation achieved early and held through Layer 24 ·
-              slight drop at Layer 26 (0.9995)
+              This visualization interpolates sampled layers to 28 bars.
             </div>
           </div>
         </div>
@@ -1158,7 +802,7 @@
         <div class="panel" id="panel-norm_i">
           <div class="lv">
             <div class="lvt">
-              ‖v*‖ by Layer — Instruct · Canonical prompt · Run _225321 (8-bit)
+              ‖v*‖ by Layer — Instruct · canonical prompt · Run _225321
             </div>
             <div class="lc"><div class="lbc" id="norm-bars-i"></div></div>
             <div class="ll" id="norm-labels-i"></div>
@@ -1171,198 +815,24 @@
                     background: rgba(200, 110, 110, 0.15);
                   "
                 ></div>
-                Peak · Layer 26 · ‖172.5‖
-              </div>
-              <div class="vli">
-                <div
-                  class="vld"
-                  style="
-                    border-color: var(--accent-cold);
-                    background: rgba(110, 160, 200, 0.15);
-                  "
-                ></div>
-                Baseline · Layer 6 · ‖3.65‖
+                Highlight: Layer 26 (peak norm)
               </div>
             </div>
             <div class="lan">
-              ~47× monotonic amplification from Layer 6 → 26
+              This visualization interpolates sampled layers to 28 bars.
             </div>
           </div>
         </div>
 
-        <h3>Optimal Layer Localization</h3>
-        <table class="rt">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>Peak Layer</th>
-              <th>Value (canonical)</th>
-              <th>Prompt Families</th>
-              <th>Consistent across runs?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Max AUC</td>
-              <td><span class="hv">Layer 6</span></td>
-              <td class="hv">1.0 (exact)</td>
-              <td>canonical, phrase_prepend</td>
-              <td class="hgr">Yes — all 3</td>
-            </tr>
-            <tr>
-              <td>Max AUC</td>
-              <td><span class="hv">Layer 9</span></td>
-              <td class="hv">1.0 (exact)</td>
-              <td>word_appended, word_prepend</td>
-              <td class="hgr">Yes — all 3</td>
-            </tr>
-            <tr>
-              <td>Max Norm</td>
-              <td><span class="hnv">Layer 26</span></td>
-              <td class="hnv">~172.5</td>
-              <td>all families</td>
-              <td class="hgr">Yes — all 3</td>
-            </tr>
-            <tr>
-              <td>Baseline Norm</td>
-              <td><span class="hv">Layer 6</span></td>
-              <td class="hv">~3.5–3.7</td>
-              <td>canonical</td>
-              <td class="hgr">Yes — all 3</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Quantization Invariance</h3>
-        <div class="fg">
-          <div
-            style="
-              background: var(--bg-card);
-              border: 1px solid var(--rule);
-              border-top: 2px solid var(--accent-green);
-              padding: 18px;
-            "
-          >
-            <div
-              style="
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 9px;
-                letter-spacing: 0.2em;
-                color: var(--accent-green);
-                margin-bottom: 8px;
-              "
-            >
-              ✓ TOPOLOGY INVARIANT
-            </div>
-            <p style="font-size: 13px; color: var(--ink-dim); line-height: 1.6">
-              Layer 6 (AUC peak) and Layer 26 (norm peak) are
-              <strong style="color: var(--ink)">identical</strong> across 4-bit
-              NF4, 8-bit INT8, and 8-bit INT8+FP16.
-            </p>
-          </div>
-          <div
-            style="
-              background: var(--bg-card);
-              border: 1px solid var(--rule);
-              border-top: 2px solid var(--accent-green);
-              padding: 18px;
-            "
-          >
-            <div
-              style="
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 9px;
-                letter-spacing: 0.2em;
-                color: var(--accent-green);
-                margin-bottom: 8px;
-              "
-            >
-              ✓ AUC INVARIANT
-            </div>
-            <p style="font-size: 13px; color: var(--ink-dim); line-height: 1.6">
-              AUC = 1.0 at Layer 6 (canonical) holds
-              <strong style="color: var(--ink)">exactly</strong> across all
-              three instruct runs despite precision differences.
-            </p>
-          </div>
-        </div>
-
-        <h3>word_prepend Anomaly</h3>
-        <div class="anomaly-box">
-          <p>
-            In all three instruct runs, the
-            <strong style="color: var(--ink)">word_prepend</strong> family
-            (<code>"verbose You are a helpful assistant."</code>) shows AUC
-            degradation at depth: 1.0 at Layer 9, falling to ~0.87 at Layer 26.
-            This pattern is absent in all other instruct prompt families, and —
-            critically —
-            <strong style="color: var(--ink)">inverts in the base model</strong>
-            (see §V). The base model's word_prepend is actually the best-behaved
-            family at Layer 26 (AUC 0.996), while canonical degrades. This
-            inversion is addressed as a finding in §V.
-          </p>
-          <table class="rt" style="margin: 14px 0 0">
-            <thead>
-              <tr>
-                <th>Layer</th>
-                <th>_203703 (4-bit)</th>
-                <th>_225321 (8-bit)</th>
-                <th>_005558 (8-bit+FP16)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>9</td>
-                <td class="hv">1.000</td>
-                <td class="hv">1.000</td>
-                <td class="hv">1.000</td>
-              </tr>
-              <tr>
-                <td>14</td>
-                <td class="hv">1.000</td>
-                <td class="hv">1.000</td>
-                <td class="hv">1.000</td>
-              </tr>
-              <tr>
-                <td>21</td>
-                <td>0.959</td>
-                <td>0.975</td>
-                <td>0.974</td>
-              </tr>
-              <tr>
-                <td class="hnv">26</td>
-                <td class="hnv">0.835</td>
-                <td class="hnv">0.867</td>
-                <td class="hnv">0.866</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- ═══════════════ §V ═══════════════ -->
-      <section id="s5">
-        <div class="sh">
-          <span class="sn">§ V</span>
-          <h2>Results II: Base Model as Null Control</h2>
-        </div>
-
-        <p>
-          The base model run (<code>Qwen/Qwen2.5-7B</code>, run _072206) uses
-          the same quantization scheme as instruct run _005558 and an identical
-          dataset split — providing a matched comparison that directly probes
-          whether the instruct model's geometry reflects learning or
-          architecture.
-        </p>
-
-        <div class="toggle">
-          <button class="tbtn act" onclick="sw('auc_b', this, 'tog2')">
+        <h3>Base Model (Null Control)</h3>
+        <div class="toggle" data-toggle="tog-base">
+          <button class="tbtn act" data-panel="auc_b" data-toggle="tog-base">
             AUC — Base
           </button>
-          <button class="tbtn" onclick="sw('norm_b', this, 'tog2')">
-            Norm — Base
+          <button class="tbtn" data-panel="norm_b" data-toggle="tog-base">
+            ‖v*‖ — Base
           </button>
-          <button class="tbtn" onclick="sw('compare', this, 'tog2')">
+          <button class="tbtn" data-panel="compare" data-toggle="tog-base">
             Side-by-Side
           </button>
         </div>
@@ -1370,7 +840,7 @@
         <div class="panel act" id="panel-auc_b">
           <div class="lv">
             <div class="lvt">
-              AUC by Layer — Base model · Canonical prompt · Run _072206
+              AUC by Layer — Base · canonical prompt · Run _072206
             </div>
             <div class="lc"><div class="lbc" id="auc-bars-b"></div></div>
             <div class="ll" id="auc-labels-b"></div>
@@ -1383,7 +853,7 @@
                     background: rgba(176, 110, 200, 0.15);
                   "
                 ></div>
-                Best AUC · Layer 14 (canonical) — no early focal point
+                Highlight: Layer 14 (best AUC in this run)
               </div>
               <div class="vli">
                 <div
@@ -1393,12 +863,11 @@
                     background: rgba(200, 110, 110, 0.15);
                   "
                 ></div>
-                Trough · Layer 11 · AUC 0.954
+                Highlight: Layer 11 (trough in this run)
               </div>
             </div>
             <div class="lan">
-              No Layer 6 peak · trough at Layer 11 · non-monotonic profile
-              throughout
+              No early focal point is highlighted in this base run.
             </div>
           </div>
         </div>
@@ -1406,7 +875,7 @@
         <div class="panel" id="panel-norm_b">
           <div class="lv">
             <div class="lvt">
-              ‖v*‖ by Layer — Base model · Canonical prompt · Run _072206
+              ‖v*‖ by Layer — Base · canonical prompt · Run _072206
             </div>
             <div class="lc"><div class="lbc" id="norm-bars-b"></div></div>
             <div class="ll" id="norm-labels-b"></div>
@@ -1419,12 +888,11 @@
                     background: rgba(176, 110, 200, 0.15);
                   "
                 ></div>
-                Peak · Layer 26 · ‖72.8‖ — same layer, 2.4× smaller
+                Highlight: Layer 26 (peak norm)
               </div>
             </div>
             <div class="lan">
-              Layer 26 peak preserved · but magnitude ~2.4× lower than instruct
-              canonical
+              Layer 26 remains the norm peak in this base run.
             </div>
           </div>
         </div>
@@ -1432,820 +900,93 @@
         <div class="panel" id="panel-compare">
           <div class="dual-chart">
             <div class="lv">
-              <span class="dc-label dc-instruct">Instruct · _005558</span>
+              <span class="dc-label dc-instruct"
+                >Instruct · Run _005558 (matched)</span
+              >
               <div class="lc"><div class="lbc" id="auc-bars-cmp-i"></div></div>
               <div class="ll" id="auc-labels-cmp-i"></div>
               <div class="lan" style="color: var(--accent)">
-                Layer 6 peak · AUC = 1.0
+                Highlighted: Layer 6
               </div>
             </div>
             <div class="lv">
-              <span class="dc-label dc-base">Base · _072206</span>
+              <span class="dc-label dc-base">Base · Run _072206</span>
               <div class="lc"><div class="lbc" id="auc-bars-cmp-b"></div></div>
               <div class="ll" id="auc-labels-cmp-b"></div>
               <div class="lan" style="color: var(--accent-purple)">
-                No Layer 6 peak · trough at L11
+                Highlights: Layer 14 (best), Layer 11 (trough)
               </div>
             </div>
           </div>
         </div>
 
-        <h3>AUC Profile Divergence 
+        <h3>What Is Being Claimed (Tightly)</h3>
         <table class="rt">
           <thead>
             <tr>
-              <th>Family</th>
-              <th>Best AUC layer (instruct)</th>
-              <th>Best AUC layer (base)</th>
-              <th>Base Layer 6 AUC</th>
-              <th>Base Layer 11 AUC</th>
+              <th>Statement</th>
+              <th>Grounded in measurement?</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>canonical</td>
-              <td class="hv">6</td>
-              <td class="hpu">14</td>
-              <td class="hpu">0.998</td>
-              <td class="hnv">0.954 ↓</td>
+              <td>
+                Instruct runs show early perfect separability (AUC = 1.0 at
+                L6/L9 for some families)
+              </td>
+              <td class="hgr">Yes</td>
+              <td>
+                Shown in the instruct AUC visualization and reported table
+                values.
+              </td>
             </tr>
             <tr>
-              <td>phrase_prepend</td>
-              <td class="hv">6</td>
-              <td class="hpu">4 (!)</td>
-              <td class="hpu">0.9999</td>
-              <td class="hnv">0.976 ↓</td>
+              <td>
+                Both instruct and base show a late-layer norm peak at Layer 26
+              </td>
+              <td class="hgr">Yes</td>
+              <td>Shown in both norm visualizations.</td>
             </tr>
             <tr>
-              <td>word_appended</td>
-              <td class="hv">9</td>
-              <td class="hpu">14</td>
-              <td class="hpu">0.994</td>
-              <td>0.9999</td>
+              <td>
+                Base model lacks the instruct model’s “Layer 6 focal point” in
+                AUC
+              </td>
+              <td class="hgr">Yes</td>
+              <td>
+                Base AUC profile differs; best AUC occurs elsewhere in the
+                reported run.
+              </td>
             </tr>
             <tr>
-              <td>word_prepend</td>
-              <td class="hv">9</td>
-              <td class="hpu">11</td>
-              <td class="hpu">0.997</td>
-              <td class="hgr">1.000</td>
+              <td>
+                This pattern implies an “input-conditioned Jacobian gain”
+                mechanism
+              </td>
+              <td class="hnv">No (hypothesis)</td>
+              <td>
+                Kept as an operating hypothesis; not asserted as proven by these
+                measurements alone.
+              </td>
             </tr>
           </tbody>
         </table>
-
-        <p
-          style="
-            font-size: 14px;
-            color: var(--ink-dim);
-            font-family: &quot;JetBrains Mono&quot;, monospace;
-          "
-        >
-          Notable: phrase_prepend peaks at Layer 4 in the base model then
-          degrades through L6–L11 before recovering. This is a new anomaly with
-          no counterpart in the instruct runs.
-        </p>
-
-        <h3>Norm Magnitude Comparison 
-        <div class="norm-data">
-          <div
-            style="
-              color: var(--accent);
-              font-size: 9px;
-              letter-spacing: 0.2em;
-              margin-bottom: 14px;
-              text-transform: uppercase;
-            "
-          >
-            Layer 26 norms — canonical — instruct vs base
-          </div>
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(4, 1fr);
-              gap: 16px;
-            "
-          >
-            <div>
-              <span style="color: var(--ink-faint); font-size: 10px"
-                >_203703 (4-bit instruct)</span
-              ><br /><span style="color: var(--accent-hot); font-size: 16px"
-                >161.9</span
-              >
-            </div>
-            <div>
-              <span style="color: var(--ink-faint); font-size: 10px"
-                >_225321 (8-bit instruct)</span
-              ><br /><span style="color: var(--accent-hot); font-size: 16px"
-                >172.5</span
-              >
-            </div>
-            <div>
-              <span style="color: var(--ink-faint); font-size: 10px"
-                >_005558 (8-bit+FP16 instruct)</span
-              ><br /><span style="color: var(--accent-hot); font-size: 16px"
-                >172.8</span
-              >
-            </div>
-            <div>
-              <span style="color: var(--accent-purple); font-size: 10px"
-                >_072206 (8-bit+FP16 base)</span
-              ><br /><span style="color: var(--accent-purple); font-size: 16px"
-                >72.8</span
-              >
-            </div>
-          </div>
-          <div
-            style="
-              margin-top: 16px;
-              padding-top: 14px;
-              border-top: 1px solid var(--rule);
-            "
-          >
-            <span style="color: var(--ink-faint)"
-              >Instruct / base ratio (matched 8-bit+FP16 runs):</span
-            >
-            <span
-              style="color: var(--accent); font-size: 16px; margin-left: 10px"
-              >172.8 / 72.8 =
-              <strong style="color: var(--ink)">2.4×</strong></span
-            >
-          </div>
-          <div
-            style="
-              margin-top: 14px;
-              display: grid;
-              grid-template-columns: repeat(4, 1fr);
-              gap: 16px;
-              padding-top: 14px;
-              border-top: 1px solid var(--rule);
-            "
-          >
-            <div>
-              <span style="color: var(--ink-faint); font-size: 10px"
-                >phrase_prepend L26 (instruct avg)</span
-              ><br /><span style="color: var(--accent-hot); font-size: 14px"
-                >~185</span
-              >
-            </div>
-            <div>
-              <span style="color: var(--ink-faint); font-size: 10px"
-                >phrase_prepend L26 (base)</span
-              ><br /><span style="color: var(--accent-purple); font-size: 14px"
-                >49.3</span
-              >
-            </div>
-            <div>
-              <span style="color: var(--ink-faint); font-size: 10px"
-                >word_appended L26 (instruct avg)</span
-              ><br /><span style="color: var(--accent-hot); font-size: 14px"
-                >~149</span
-              >
-            </div>
-            <div>
-              <span style="color: var(--ink-faint); font-size: 10px"
-                >word_appended L26 (base)</span
-              ><br /><span style="color: var(--accent-purple); font-size: 14px"
-                >54.0</span
-              >
-            </div>
-          </div>
-        </div>
-
-        <h3>Norm Amplification Trajectory 
-        <div class="ng">
-          <div class="lvt">‖v*‖ Growth — Instruct vs Base (canonical)</div>
-
-          <!-- Lane: Instruct -->
-          <div style="margin-top: 18px">
-            <div
-              style="
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 9px;
-                letter-spacing: 0.18em;
-                color: var(--accent);
-                text-transform: uppercase;
-                margin-bottom: 20px;
-              "
-            >
-              ■ Instruct · ~47× amplification
-            </div>
-            <div style="position: relative; height: 28px" id="lane-i">
-              <!-- value labels above the line -->
-              <div
-                style="
-                  position: absolute;
-                  bottom: 14px;
-                  left: 0;
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 11px;
-                  color: var(--accent-cold);
-                  transform: translateX(-0%);
-                "
-              >
-                ‖3.65‖
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 14px;
-                  left: 50%;
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 11px;
-                  color: var(--accent);
-                  transform: translateX(-50%);
-                "
-              >
-                ‖49.8‖
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 14px;
-                  right: 0;
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 11px;
-                  color: var(--accent-hot);
-                  transform: translateX(0%);
-                "
-              >
-                ‖172.5‖
-              </div>
-              <!-- track line -->
-              <div
-                style="
-                  position: absolute;
-                  bottom: 4px;
-                  left: 0;
-                  right: 0;
-                  height: 2px;
-                  background: var(--rule);
-                "
-              ></div>
-              <div
-                id="nfill-i"
-                style="
-                  position: absolute;
-                  bottom: 4px;
-                  left: 0;
-                  height: 2px;
-                  background: linear-gradient(
-                    to right,
-                    var(--accent-cold),
-                    var(--accent-hot)
-                  );
-                  width: 0%;
-                  transition: width 1.2s ease;
-                "
-              ></div>
-              <!-- dots -->
-              <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  left: 0;
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 50%;
-                  border: 2px solid var(--accent-cold);
-                  background: var(--bg);
-                  transform: translateX(-50%);
-                "
-              ></div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  left: 50%;
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 50%;
-                  border: 2px solid var(--accent);
-                  background: var(--bg);
-                  transform: translateX(-50%);
-                "
-              ></div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  right: 0;
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 50%;
-                  border: 2px solid var(--accent-hot);
-                  background: var(--bg);
-                  transform: translateX(50%);
-                "
-              ></div>
-            </div>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 10px;
-                color: var(--ink-faint);
-                margin-top: 6px;
-              "
-            >
-              <span>Layer 6</span><span>Layer 19</span><span>Layer 26</span>
-            </div>
-          </div>
-
-          <!-- Lane: Base -->
-          <div style="margin-top: 32px">
-            <div
-              style="
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 9px;
-                letter-spacing: 0.18em;
-                color: var(--accent-purple);
-                text-transform: uppercase;
-                margin-bottom: 20px;
-              "
-            >
-              ■ Base · ~17× amplification
-            </div>
-            <div style="position: relative; height: 28px" id="lane-b">
-              <!-- value labels above the line -->
-              <div
-                style="
-                  position: absolute;
-                  bottom: 14px;
-                  left: 0;
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 11px;
-                  color: rgba(176, 110, 200, 0.7);
-                  transform: translateX(0%);
-                "
-              >
-                ‖4.3‖
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 14px;
-                  left: 50%;
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 11px;
-                  color: var(--accent-purple);
-                  transform: translateX(-50%);
-                "
-              >
-                ‖26.3‖
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 14px;
-                  right: 0;
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 11px;
-                  color: var(--accent-purple);
-                  transform: translateX(0%);
-                "
-              >
-                ‖72.8‖
-              </div>
-              <!-- track line -->
-              <div
-                style="
-                  position: absolute;
-                  bottom: 4px;
-                  left: 0;
-                  right: 0;
-                  height: 2px;
-                  background: var(--rule);
-                "
-              ></div>
-              <div
-                id="nfill-b"
-                style="
-                  position: absolute;
-                  bottom: 4px;
-                  left: 0;
-                  height: 2px;
-                  background: linear-gradient(
-                    to right,
-                    rgba(176, 110, 200, 0.4),
-                    var(--accent-purple)
-                  );
-                  width: 0%;
-                  transition: width 1.4s ease;
-                "
-              ></div>
-              <!-- dots -->
-              <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  left: 0;
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 50%;
-                  border: 2px solid var(--accent-purple);
-                  background: var(--bg);
-                  transform: translateX(-50%);
-                  opacity: 0.6;
-                "
-              ></div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  left: 50%;
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 50%;
-                  border: 2px solid var(--accent-purple);
-                  background: var(--bg);
-                  transform: translateX(-50%);
-                "
-              ></div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  right: 0;
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 50%;
-                  border: 2px solid var(--accent-purple);
-                  background: var(--bg);
-                  transform: translateX(50%);
-                "
-              ></div>
-            </div>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 10px;
-                color: var(--ink-faint);
-                margin-top: 6px;
-              "
-            >
-              <span>Layer 6</span><span>Layer 19</span><span>Layer 26</span>
-            </div>
-          </div>
-
-          <!-- Delta callout -->
-          <div
-            style="
-              margin-top: 24px;
-              padding: 14px 18px;
-              background: var(--bg-lift);
-              border: 1px solid var(--rule);
-              display: flex;
-              gap: 32px;
-              flex-wrap: wrap;
-              align-items: center;
-            "
-          >
-            <div
-              style="
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 11px;
-                color: var(--ink-dim);
-              "
-            >
-              Layer 26 delta:
-              <span style="color: var(--accent-hot)">172.5</span> −
-              <span style="color: var(--accent-purple)">72.8</span> =
-              <strong style="color: var(--ink)">99.7</strong>
-            </div>
-            <div
-              style="
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 11px;
-                color: var(--ink-dim);
-              "
-            >
-              Instruct / base ratio:
-              <strong style="color: var(--ink)">2.4×</strong>
-            </div>
-            <div
-              style="
-                font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 11px;
-                color: var(--ink-dim);
-              "
-            >
-              Layer 6 ratio:
-              <span style="color: var(--accent-cold)">3.65</span> /
-              <span style="color: var(--accent-purple)">4.3</span> =
-              <strong style="color: var(--ink)">0.85×</strong>
-              <span style="color: var(--ink-faint)"
-                >(base larger at entry)</span
-              >
-            </div>
-          </div>
-
-          <p
-            style="
-              font-size: 14px;
-              color: var(--ink-dim);
-              margin-top: 14px;
-              line-height: 1.6;
-            "
-          >
-            Both models show monotonic growth to Layer 26. The instruct model's
-            trajectory is substantially steeper, indicating that instruction
-            tuning <em>amplifies</em> the architectural gain structure rather
-            than creating it from scratch. Notably, the base model's Layer 6
-            norm is slightly <em>larger</em> than the instruct model's (4.3 vs
-            3.65) — the divergence accumulates through intermediate layers, not
-            at the entry point.
-          </p>
-        </div>
-
-        <h3>The word_prepend Inversion 
-        <div class="finding-box">
-          <p>
-            The instruct model's most anomalous family (word_prepend, AUC
-            degrading to ~0.87 at Layer 26) becomes the
-            <strong style="color: var(--ink)"
-              >best-behaved family at depth in the base model</strong
-            >
-            (AUC 0.996 at Layer 26). Meanwhile, canonical — the most stable
-            family in the instruct model — shows the sharpest non-monotonic
-            profile in the base (trough at Layer 11, AUC 0.954).
-          </p>
-          <p style="margin-top: 10px">
-            A plausible interpretation: instruction tuning trains the model to
-            route full phrase-level instructions (<code
-              >"Answer verbosely."</code
-            >) through early layers efficiently. A bare positional token (<code
-              >"verbose"</code
-            >
-            at position 0) requires deep-layer processing to resolve in the
-            instruct model — but in the base model, which has no concept of
-            following instructions, the positional token is as good a cue as
-            any. This is worth testing by examining attention patterns at Layer
-            26 for the two conditions.
-          </p>
-        </div>
-      </section>
-
-      <!-- ═══════════════ §VI ═══════════════ -->
-      <section id="s6">
-        <div class="sh">
-          <span class="sn">§ VI</span>
-          <h2>Criterion A: Partial Satisfaction</h2>
-        </div>
-
-        <div class="crit-box">
-          <p>
-            <strong style="color: var(--ink)">Criterion A stated:</strong> "If a
-            base or random-weight model shows the same v* norm explosion at
-            Layer 26, the result is an artifact of architecture, not learning."
-          </p>
-          <p style="margin-top: 10px">
-            <strong style="color: var(--ink)"
-              >Outcome: Partially satisfied.</strong
-            >
-            The base model retains the Layer 26 norm peak, which could indicate
-            architectural bias. However, three observations limit this
-            interpretation: (1) the base model's Layer 26 canonical norm is
-            ~72.8 vs ~172.5 for the matched instruct run — a 2.4× difference
-            that is substantial and systematic; (2) the base model's
-            amplification ratio (~17×) is substantially less than the instruct
-            model's (~47×), inconsistent with a pure architectural artifact
-            which would produce similar ratios; (3) the bifurcated AUC topology
-            (Layer 6 focal point) is entirely absent in the base model. A full
-            null-model test requires a random-weight model, which would be
-            expected to show no coherent peak at any layer.
-          </p>
-          <p
-            style="
-              margin-top: 10px;
-              font-family: &quot;JetBrains Mono&quot;, monospace;
-              font-size: 12px;
-              color: var(--accent-hot);
-            "
-          >
-            Remaining gap: random-weight baseline needed to close Criterion A
-            completely.
-          </p>
-        </div>
-
-        <h3>Summary of What Holds vs What Is Instruct-Specific</h3>
-        <table class="rt">
-          <thead>
-            <tr>
-              <th>Property</th>
-              <th>Instruct (3 runs)</th>
-              <th>Base (1 run)</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Layer 26 = norm peak</td>
-              <td class="hgr">✓ all families</td>
-              <td class="hgr">✓ all families</td>
-              <td class="hgr">Architecture + training</td>
-            </tr>
-            <tr>
-              <td>Layer 6 = AUC focal point</td>
-              <td class="hgr">✓ canonical/phrase</td>
-              <td class="hnv">✗ absent</td>
-              <td class="hnv">Instruct-specific</td>
-            </tr>
-            <tr>
-              <td>Layer 26 norm ~172 (canonical)</td>
-              <td class="hgr">✓ all 3 runs</td>
-              <td class="hpu">72.8 (2.4× lower)</td>
-              <td class="hnv">Instruct-amplified</td>
-            </tr>
-            <tr>
-              <td>~47× amplification ratio</td>
-              <td class="hgr">✓ canonical</td>
-              <td class="hpu">~17× (canonical)</td>
-              <td class="hnv">Instruct-amplified</td>
-            </tr>
-            <tr>
-              <td>Monotonic norm growth</td>
-              <td class="hgr">✓ all families</td>
-              <td class="hgr">✓ all families</td>
-              <td class="hgr">Architecture + training</td>
-            </tr>
-            <tr>
-              <td>AUC stability L6→L24</td>
-              <td class="hgr">✓ canonical</td>
-              <td class="hnv">Non-monotonic (trough L11)</td>
-              <td class="hnv">Instruct-specific</td>
-            </tr>
-            <tr>
-              <td>word_prepend AUC degradation</td>
-              <td class="hnv">✓ (anomaly)</td>
-              <td class="hpu">Inverted — best at depth</td>
-              <td class="hpu">Inverted by tuning</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- ═══════════════ §VII ═══════════════ -->
-      <section id="s7">
-        <div class="sh">
-          <span class="sn">§ VII</span>
-          <h2>Disconfirmation Criteria</h2>
-        </div>
-        <div class="fg">
-          <div class="fc">
-            <div class="flabel">Criterion A — Null-Model Parity</div>
-            <p>
-              Partially satisfied. Base model shows same-layer norm peak but
-              2.4× smaller magnitude and no AUC focal point. A random-weight
-              model is required to close this criterion fully.
-            </p>
-          </div>
-          <div class="fc">
-            <div class="flabel">Criterion B — No Conditioning Signal</div>
-            <p>
-              Not satisfied (i.e., signal exists). AUC = 1.0 at Layer 6 for
-              canonical/phrase-prepend across all instruct runs. The signal is
-              strong and replicable.
-            </p>
-          </div>
-        </div>
-        <div class="fg" style="margin-top: 0">
-          <div class="fc">
-            <div class="flabel">Criterion C — word_prepend Mechanism</div>
-            <p>
-              The inversion between instruct and base models sharpens the
-              question: instruction tuning appears to differentially route
-              positional-token prompts vs phrase-level prompts. Attention
-              analysis at Layers 6 and 26 is the natural next step.
-            </p>
-          </div>
-          <div class="fc">
-            <div class="flabel">Criterion D — Full-Precision Replication</div>
-            <p>
-              Current coverage: 4-bit NF4, 8-bit INT8, 8-bit INT8+FP16
-              (instruct); 8-bit INT8+FP16 (base). A BF16 or FP16 full-precision
-              run on both models remains an open item.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════ §VIII ═══════════════ -->
-      <section id="s8">
-        <div class="sh">
-          <span class="sn">§ VIII</span>
-          <h2>Conclusion</h2>
-        </div>
-        <div class="conc">
-          <p style="font-size: 17px; line-height: 1.8; color: var(--ink-dim)">
-            The bifurcated geometry—Layer 6 separability, Layer 26 magnitude—is
-            an
-            <strong style="color: var(--ink)"
-              >instruction-tuning-specific property</strong
-            >
-            of Qwen2.5-7B-Instruct. The base model preserves the Layer 26 norm
-            peak (consistent with an architectural prior toward late-layer
-            amplification) but shows 2.4× smaller norms, ~17× vs ~47×
-            amplification, no early AUC focal point, a non-monotonic AUC trough
-            at Layer 11, and an inversion of the word_prepend anomaly. Together,
-            these differences indicate that instruction tuning shapes the gain
-            geometry in ways that are measurable, replicable across quantization
-            regimes, and qualitatively distinct from the base model's
-            representational structure.
-          </p>
-          <p
-            style="
-              font-size: 17px;
-              line-height: 1.8;
-              color: var(--ink-dim);
-              margin-top: 14px;
-            "
-          >
-            The base model comparison partially satisfies Criterion A and
-            upgrades the primary claim: this is not merely an architectural
-            artifact but a learned property of the instruction-following
-            objective.
-          </p>
-          <div
-            style="
-              margin-top: 22px;
-              padding-top: 18px;
-              border-top: 1px solid var(--rule);
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 20px;
-              flex-wrap: wrap;
-            "
-          >
-            <div>
-              <div
-                style="
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 9px;
-                  letter-spacing: 0.2em;
-                  color: var(--accent);
-                  margin-bottom: 5px;
-                "
-              >
-                KEY RESULT
-              </div>
-              <div style="font-size: 13px">
-                Bifurcated geometry is instruct-specific. Base model lacks Layer
-                6 focal point.
-              </div>
-            </div>
-            <div>
-              <div
-                style="
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 9px;
-                  letter-spacing: 0.2em;
-                  color: var(--accent);
-                  margin-bottom: 5px;
-                "
-              >
-                INSTRUCT RATIO
-              </div>
-              <div style="font-size: 13px">
-                172.5 / 3.65 ≈ <strong>~47×</strong> (canonical)
-              </div>
-            </div>
-            <div>
-              <div
-                style="
-                  font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 9px;
-                  letter-spacing: 0.2em;
-                  color: var(--accent-purple);
-                  margin-bottom: 5px;
-                "
-              >
-                BASE RATIO
-              </div>
-              <div style="font-size: 13px">
-                72.8 / 4.3 ≈ <strong>~17×</strong> · same layer · 2.4× smaller
-                peak
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <footer>
         <div class="fsig">
-          Beyond Circuits · Jacobian Gain Geometry · v3 — Base Model Comparison
+          Instruction-Conditioned Separation & Displacement ·
+          scoped-to-measurement
         </div>
         <div class="fmod">
-          Qwen2.5-7B-Instruct + Qwen2.5-7B · 28 Layers · 4 runs · Mar 2026
+          Qwen2.5-7B-Instruct + Qwen2.5-7B · 28 layers · Mar 2026
         </div>
       </footer>
     </div>
-    <!-- /container -->
 
     <script>
-      // ── All empirical data ──────────────────────────────────────────────────────
+      // ── Empirical data (as provided in your v3 HTML) ─────────────────────────────
       const LAYERS = [4, 6, 9, 11, 14, 16, 19, 21, 24, 26];
       const N = 28;
 
@@ -2279,7 +1020,7 @@
         },
       };
 
-      // ── Interpolate over N=28 layers from sampled data ─────────────────────────
+      // ── Interpolation from sampled layers to N=28 bars ──────────────────────────
       function interp(vals, layerIdx) {
         const layer = layerIdx + 1;
         for (let i = 0; i < LAYERS.length - 1; i++) {
@@ -2298,188 +1039,120 @@
         );
       }
 
-      // ── Build bar chart ────────────────────────────────────────────────────────
-      function buildBars(cid, lid, vals, highlights, dataset) {
-        const c = document.getElementById(cid);
-        const l = document.getElementById(lid);
+      // ── Bar builder (with tooltip) ──────────────────────────────────────────────
+      function buildBars(containerId, labelsId, vals, highlights) {
+        const c = document.getElementById(containerId);
+        const l = document.getElementById(labelsId);
         if (!c || !l) return;
+
+        c.innerHTML = "";
+        l.innerHTML = "";
+
         const mx = Math.max(...vals);
+
+        const labeledLayers = new Set([1, 6, 9, 11, 14, 19, 24, 26, 28]);
+
         vals.forEach((v, i) => {
           const b = document.createElement("div");
           b.className = "lb";
           b.style.height = (v / mx) * 100 + "%";
-          highlights.forEach((h) => {
+
+          for (const h of highlights) {
             if (i + 1 === h.layer) b.classList.add(h.cls);
-          });
+          }
+
           b.addEventListener("mousemove", (e) => {
             const t = document.getElementById("tt");
             t.style.opacity = "1";
             t.style.left = e.clientX + 12 + "px";
             t.style.top = e.clientY - 28 + "px";
-            t.textContent = "Layer " + (i + 1) + "  ·  " + v.toFixed(4);
+            t.textContent = "Layer " + (i + 1) + " · " + v.toFixed(4);
           });
           b.addEventListener("mouseleave", () => {
             document.getElementById("tt").style.opacity = "0";
           });
+
           c.appendChild(b);
+
           const lb = document.createElement("div");
-          lb.className = [1, 6, 9, 11, 14, 19, 24, 26, 28].includes(i + 1)
-            ? "lli mk"
-            : "lli";
-          if ([1, 6, 9, 11, 14, 19, 24, 26, 28].includes(i + 1))
-            lb.textContent = i + 1;
+          const isMarked = labeledLayers.has(i + 1);
+          lb.className = isMarked ? "lli mk" : "lli";
+          lb.textContent = isMarked ? String(i + 1) : "";
           l.appendChild(lb);
         });
       }
 
-      // Instruct AUC (§IV)
-      buildBars(
-        "auc-bars-i",
-        "auc-labels-i",
-        profile("instruct", "auc"),
-        [
-          { layer: 6, cls: "bp" },
-          { layer: 9, cls: "pa" },
-        ],
-        "instruct",
-      );
+      // ── Build all charts once ───────────────────────────────────────────────────
+      buildBars("auc-bars-i", "auc-labels-i", profile("instruct", "auc"), [
+        { layer: 6, cls: "bp" },
+        { layer: 9, cls: "pa" },
+      ]);
 
-      // Instruct norm (§IV)
-      buildBars(
-        "norm-bars-i",
-        "norm-labels-i",
-        profile("instruct", "norm"),
-        [{ layer: 26, cls: "pn" }],
-        "instruct",
-      );
+      buildBars("norm-bars-i", "norm-labels-i", profile("instruct", "norm"), [
+        { layer: 26, cls: "pn" },
+      ]);
 
-      // Base AUC (§V)
-      buildBars(
-        "auc-bars-b",
-        "auc-labels-b",
-        profile("base", "auc"),
-        [
-          { layer: 14, cls: "pp" },
-          { layer: 11, cls: "pn" },
-        ],
-        "base",
-      );
+      buildBars("auc-bars-b", "auc-labels-b", profile("base", "auc"), [
+        { layer: 14, cls: "pp" },
+        { layer: 11, cls: "pn" },
+      ]);
 
-      // Base norm (§V)
-      buildBars(
-        "norm-bars-b",
-        "norm-labels-b",
-        profile("base", "norm"),
-        [{ layer: 26, cls: "pp" }],
-        "base",
-      );
+      buildBars("norm-bars-b", "norm-labels-b", profile("base", "norm"), [
+        { layer: 26, cls: "pp" },
+      ]);
 
-      // Side-by-side comparison (§V — instruct side)
       buildBars(
         "auc-bars-cmp-i",
         "auc-labels-cmp-i",
         profile("instruct_005558", "auc"),
         [{ layer: 6, cls: "bp" }],
-        "instruct_005558",
       );
 
-      // Side-by-side comparison (§V — base side)
-      buildBars(
-        "auc-bars-cmp-b",
-        "auc-labels-cmp-b",
-        profile("base", "auc"),
-        [
-          { layer: 14, cls: "pp" },
-          { layer: 11, cls: "pn" },
-        ],
-        "base",
-      );
+      buildBars("auc-bars-cmp-b", "auc-labels-cmp-b", profile("base", "auc"), [
+        { layer: 14, cls: "pp" },
+        { layer: 11, cls: "pn" },
+      ]);
 
-      // ── Toggle panels ──────────────────────────────────────────────────────────
-      function sw(id, btn, group) {
-        document
-          .querySelectorAll('[data-group="' + group + '"]')
-          .forEach((b) => b.classList.remove("act"));
-        document
-          .querySelectorAll('[data-panelgroup="' + group + '"]')
-          .forEach((p) => p.classList.remove("act"));
-        btn.setAttribute("data-group", group);
-        document.getElementById("panel-" + id).classList.add("act");
-        btn.classList.add("act");
-      }
-      // Assign groups on first click via data attributes — simpler: just filter by toggle parent
-      function sw(id, btn, group) {
-        const toggleParent = btn.closest(".toggle");
-        toggleParent
-          .querySelectorAll(".tbtn")
-          .forEach((b) => b.classList.remove("act"));
-        // find panels in next sibling panels
-        const allPanels = ["auc_i", "norm_i", "auc_b", "norm_b", "compare"];
-        allPanels.forEach((pid) => {
-          const el = document.getElementById("panel-" + pid);
-          if (el) el.classList.remove("act");
-        });
-        document.getElementById("panel-" + id).classList.add("act");
-        btn.classList.add("act");
-      }
+      // ── Toggle behavior (fixed, scoped per toggle group) ───────────────────────
+      function activatePanel(groupName, panelId, btnEl) {
+        // deactivate buttons in this toggle group
+        const buttons = document.querySelectorAll(
+          '.toggle[data-toggle="' + groupName + '"] .tbtn',
+        );
+        buttons.forEach((b) => b.classList.remove("act"));
 
-      // ── Norm trajectory animation ───────────────────────────────────────────────
-      let normAnimated = false;
-      function animNorm() {
-        if (normAnimated) return;
-        normAnimated = true;
-        const track = document.getElementById("ntrack");
+        // collect panel ids referenced by buttons in this group
+        const panelIds = Array.from(buttons).map((b) =>
+          b.getAttribute("data-panel"),
+        );
 
-        document.getElementById("nfill-i").style.width = "100%";
-        setTimeout(() => {
-          document.getElementById("nfill-b").style.width = "100%";
-        }, 200);
-
-        // Instruct milestones
-        [
-          { pct: 0, val: "3.65" },
-          { pct: 0.38, val: "~50" },
-          { pct: 0.7, val: "~118" },
-          { pct: 1, val: "172.5" },
-        ].forEach((d) => {
-          const dot = document.createElement("div");
-          dot.className = "ndot i";
-          dot.style.left = d.pct * 100 + "%";
-          const lbl = document.createElement("div");
-          lbl.className = "ndlabel i";
-          lbl.style.left = d.pct * 100 + "%";
-          lbl.textContent = "‖" + d.val + "‖";
-          track.appendChild(dot);
-          track.appendChild(lbl);
+        // hide only those panels
+        panelIds.forEach((pid) => {
+          const p = document.getElementById("panel-" + pid);
+          if (p) p.classList.remove("act");
         });
 
-        // Base milestones
-        [
-          { pct: 0, val: "4.3" },
-          { pct: 0.35, val: "~18" },
-          { pct: 0.62, val: "~51" },
-          { pct: 1, val: "72.8" },
-        ].forEach((d) => {
-          const dot = document.createElement("div");
-          dot.className = "ndot b";
-          dot.style.left = d.pct * 100 + "%";
-          const lbl = document.createElement("div");
-          lbl.className = "ndlabel b";
-          lbl.style.left = d.pct * 100 + "%";
-          lbl.textContent = "‖" + d.val + "‖";
-          track.appendChild(dot);
-          track.appendChild(lbl);
-        });
+        // show target
+        const target = document.getElementById("panel-" + panelId);
+        if (target) target.classList.add("act");
+        btnEl.classList.add("act");
       }
 
-      // ── Scroll reveal ──────────────────────────────────────────────────────────
+      document.querySelectorAll(".toggle").forEach((toggleEl) => {
+        const groupName = toggleEl.getAttribute("data-toggle");
+        toggleEl.querySelectorAll(".tbtn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const panelId = btn.getAttribute("data-panel");
+            activatePanel(groupName, panelId, btn);
+          });
+        });
+      });
+
+      // ── Scroll reveal ─────────────────────────────────────────────────────────
       const obs = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("vis");
-              if (e.target.id === "s5") animNorm();
-            }
+            if (e.isIntersecting) e.target.classList.add("vis");
           });
         },
         { threshold: 0.05 },
