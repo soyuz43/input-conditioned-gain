@@ -974,6 +974,187 @@
         </table>
       </section>
 
+      <section id="s4">
+        <div class="sh">
+          <span class="sn">§ IV</span>
+          <h2>Norm Amplification Trajectory</h2>
+        </div>
+
+        <div class="inv-box" style="padding-top: 18px">
+          <div class="lvt">‖v*‖ Growth — Instruct vs Base (canonical)</div>
+
+          <!-- Toggle -->
+          <div class="toggle" style="margin: 14px 0 14px">
+            <button class="tbtn act" id="ng-btn-both">Both</button>
+            <button class="tbtn" id="ng-btn-i">Instruct</button>
+            <button class="tbtn" id="ng-btn-b">Base</button>
+            <button class="tbtn" id="ng-btn-sbs">Side-by-Side</button>
+          </div>
+
+          <!-- Single-lane view (Both / Instruct / Base) -->
+          <div id="ng-view-main" class="panel act" style="display: block">
+            <div
+              class="nglane"
+              id="nglane-instruct"
+              style="margin-top: 10px"
+            ></div>
+            <div class="nglane" id="nglane-base" style="margin-top: 18px"></div>
+
+            <!-- Summary box -->
+            <div
+              class="norm-data"
+              id="ng-summary"
+              style="margin-top: 18px"
+            ></div>
+
+            <!-- Scoped interpretation (optional: keep / delete) -->
+            <p
+              style="
+                margin-top: 14px;
+                font-size: 14px;
+                color: var(--ink-dim);
+                line-height: 1.6;
+              "
+            >
+              Measurement: both models show increasing ‖v*‖ toward Layer 26. The
+              instruct run shows steeper growth. Interpretation (hypothesis):
+              instruction tuning may amplify an existing late-layer gain
+              structure rather than creating it entirely.
+            </p>
+          </div>
+
+          <!-- Side-by-side comparison view -->
+          <div id="ng-view-sbs" class="panel" style="display: none">
+            <div class="dual-chart" style="margin-top: 10px">
+              <div class="lv">
+                <span class="dc-label dc-instruct">Instruct (canonical)</span>
+                <div id="nglane-sbs-instruct"></div>
+              </div>
+              <div class="lv">
+                <span class="dc-label dc-base">Base (canonical)</span>
+                <div id="nglane-sbs-base"></div>
+              </div>
+            </div>
+            <div
+              class="norm-data"
+              id="ng-summary-sbs"
+              style="margin-top: 14px"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <style>
+        /* --- Trajectory lane styling (matches your aesthetic) --- */
+        .nglane {
+          background: var(--bg-card);
+          border: 1px solid var(--rule);
+          padding: 16px 18px;
+        }
+
+        .ng-head {
+          font-family: "JetBrains Mono", monospace;
+          font-size: 10px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+          color: var(--ink-faint);
+        }
+
+        .ng-head .tag {
+          display: inline-block;
+          margin-right: 10px;
+          opacity: 0.9;
+        }
+
+        .ng-sub {
+          font-family: "JetBrains Mono", monospace;
+          font-size: 11px;
+          color: var(--ink-dim);
+          margin-top: 8px;
+        }
+
+        .ng-svg {
+          width: 100%;
+          height: 72px;
+          display: block;
+          overflow: visible;
+        }
+
+        .ng-label {
+          font-family: "JetBrains Mono", monospace;
+          font-size: 12px;
+          dominant-baseline: middle;
+        }
+        .ng-layer {
+          font-family: "JetBrains Mono", monospace;
+          font-size: 11px;
+          fill: var(--ink-faint);
+          font-style: italic;
+        }
+
+        .ng-dot {
+          cursor: pointer;
+        }
+
+        /* tiny “bullet square” */
+        .ng-bullet {
+          width: 6px;
+          height: 6px;
+          display: inline-block;
+          margin-right: 8px;
+          transform: translateY(-1px);
+        }
+      </style>
+
+      <section id="s5">
+        <div class="sh">
+          <span class="sn">§ V</span>
+          <h2>The <code>word_prepend</code> Inversion</h2>
+        </div>
+
+        <div class="finding-box">
+          <p>
+            In the instruct model, the <code>word_prepend</code> family shows
+            decreasing separability toward depth, degrading to roughly AUC ≈
+            0.87 at Layer 26.
+          </p>
+
+          <p style="margin-top: 10px">
+            In the base model, the same family becomes the most stable at depth,
+            reaching AUC ≈ 0.996 at Layer 26.
+          </p>
+
+          <p style="margin-top: 10px">
+            Meanwhile the <code>canonical</code> family — the most stable in the
+            instruct model — shows the sharpest non-monotonic profile in the
+            base model, with a trough at Layer 11 (AUC ≈ 0.954).
+          </p>
+        </div>
+
+        <div class="warn-box">
+          <p>
+            A possible explanation is that instruction tuning trains the model
+            to route phrase-level instruction templates efficiently through
+            early layers (e.g. “Answer verbosely.”).
+          </p>
+
+          <p style="margin-top: 10px">
+            Under this interpretation, a bare positional token (<code
+              >verbose</code
+            >
+            at position 0) may require deeper processing in the instruct model,
+            while in the base model the token acts as a generic lexical cue
+            rather than an instruction signal.
+          </p>
+
+          <p style="margin-top: 10px">
+            This hypothesis could be tested by examining attention patterns or
+            residual activations around Layer 26 for the two prompt families.
+          </p>
+        </div>
+      </section>
+
       <footer>
         <div class="fsig">
           Instruction-Conditioned Separation & Displacement ·
@@ -1020,6 +1201,270 @@
         },
       };
 
+      // ──────────────────────────────────────────────────────────────
+      // Norm Amplification Trajectory (SVG lanes)
+      // Uses your canonical milestone points already in DATA:
+      // instruct.norm and base.norm are sampled at LAYERS = [4,6,9,11,14,16,19,21,24,26]
+      // We render only 3 milestones: L6, L19, L26 (the ones you cite)
+      // ──────────────────────────────────────────────────────────────
+
+      function getNormAt(datasetKey, layer) {
+        const idx = LAYERS.indexOf(layer);
+        if (idx === -1)
+          throw new Error("Layer not in sampled LAYERS: " + layer);
+        return DATA[datasetKey].norm[idx];
+      }
+
+      function fmt(x, digits = 2) {
+        return Number(x).toFixed(digits);
+      }
+
+      function laneSVG({ title, accent, accent2, points }) {
+        // points: [{layer, value, color}]
+        // layout constants
+        const padL = 18;
+        const padR = 18;
+        const y = 36;
+        const w = 900; // virtual width; scales responsively
+        const x1 = padL,
+          x2 = w - padR;
+
+        // map layers 6..26 to x
+        const minL = 6,
+          maxL = 26;
+        const x = (layer) => x1 + ((layer - minL) / (maxL - minL)) * (x2 - x1);
+
+        // colors
+        const lineGradId = "grad_" + Math.random().toString(16).slice(2);
+
+        // Build SVG as string
+        const svg = `
+  <div class="ng-head">
+    <span class="tag"><span class="ng-bullet" style="background:${accent};"></span>${title}</span>
+  </div>
+
+  <svg class="ng-svg" viewBox="0 0 ${w} 72" preserveAspectRatio="xMidYMid meet" aria-label="${title}">
+    <defs>
+      <linearGradient id="${lineGradId}" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="${accent2 || accent}" stop-opacity="0.95"/>
+        <stop offset="60%" stop-color="${accent}" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="${accent}" stop-opacity="0.95"/>
+      </linearGradient>
+    </defs>
+
+    <!-- baseline track -->
+    <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="rgba(42,37,32,1)" stroke-width="2"/>
+
+    <!-- colored track -->
+    <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="url(#${lineGradId})" stroke-width="2" opacity="0.85"/>
+
+    ${points
+      .map(
+        (p) => `
+      <!-- value label -->
+      <text x="${x(p.layer)}" y="${y - 14}" text-anchor="middle"
+            class="ng-label" fill="${p.color}">
+        ‖${fmt(p.value, p.value < 10 ? 2 : 1)}‖
+      </text>
+
+      <!-- dot -->
+      <circle class="ng-dot" cx="${x(p.layer)}" cy="${y}" r="6"
+              fill="var(--bg)" stroke="${p.color}" stroke-width="2"
+              data-layer="${p.layer}" data-value="${p.value}">
+      </circle>
+
+      <!-- layer label -->
+      <text x="${x(p.layer)}" y="${y + 22}" text-anchor="middle" class="ng-layer">
+        Layer ${p.layer}
+      </text>
+    `,
+      )
+      .join("")}
+  </svg>
+  `;
+
+        return svg;
+      }
+
+      function attachTooltip(rootEl) {
+        const tip = document.getElementById("tt");
+        if (!tip) return;
+
+        rootEl.querySelectorAll(".ng-dot").forEach((dot) => {
+          dot.addEventListener("mousemove", (e) => {
+            const layer = dot.getAttribute("data-layer");
+            const value = Number(dot.getAttribute("data-value"));
+            tip.style.opacity = "1";
+            tip.style.left = e.clientX + 12 + "px";
+            tip.style.top = e.clientY - 28 + "px";
+            tip.textContent = `Layer ${layer}  ·  ‖v*‖ = ${value.toFixed(4)}`;
+          });
+          dot.addEventListener("mouseleave", () => {
+            tip.style.opacity = "0";
+          });
+        });
+      }
+
+      function renderNormTrajectories(mode = "both") {
+        const i6 = getNormAt("instruct", 6);
+        const i19 = getNormAt("instruct", 19);
+        const i26 = getNormAt("instruct", 26);
+
+        const b6 = getNormAt("base", 6);
+        const b19 = getNormAt("base", 19);
+        const b26 = getNormAt("base", 26);
+
+        const laneI = document.getElementById("nglane-instruct");
+        const laneB = document.getElementById("nglane-base");
+        const sum = document.getElementById("ng-summary");
+
+        const laneSbsI = document.getElementById("nglane-sbs-instruct");
+        const laneSbsB = document.getElementById("nglane-sbs-base");
+        const sumSbs = document.getElementById("ng-summary-sbs");
+
+        if (!laneI || !laneB || !sum || !laneSbsI || !laneSbsB || !sumSbs)
+          return;
+
+        const instructPoints = [
+          { layer: 6, value: i6, color: "var(--accent-cold)" },
+          { layer: 19, value: i19, color: "var(--accent)" },
+          { layer: 26, value: i26, color: "var(--accent-hot)" },
+        ];
+
+        const basePoints = [
+          { layer: 6, value: b6, color: "rgba(176,110,200,0.8)" },
+          { layer: 19, value: b19, color: "var(--accent-purple)" },
+          { layer: 26, value: b26, color: "var(--accent-purple)" },
+        ];
+
+        // Build lane HTML
+        laneI.innerHTML = laneSVG({
+          title: "INSTRUCT  ·  ~" + fmt(i26 / i6, 0) + "× amplification",
+          accent: "var(--accent)",
+          accent2: "var(--accent-cold)",
+          points: instructPoints,
+        });
+
+        laneB.innerHTML = laneSVG({
+          title: "BASE      ·  ~" + fmt(b26 / b6, 0) + "× amplification",
+          accent: "var(--accent-purple)",
+          accent2: "rgba(176,110,200,0.55)",
+          points: basePoints,
+        });
+
+        // Side-by-side lanes
+        laneSbsI.innerHTML = laneSVG({
+          title: "INSTRUCT  ·  canonical",
+          accent: "var(--accent)",
+          accent2: "var(--accent-cold)",
+          points: instructPoints,
+        });
+
+        laneSbsB.innerHTML = laneSVG({
+          title: "BASE      ·  canonical",
+          accent: "var(--accent-purple)",
+          accent2: "rgba(176,110,200,0.55)",
+          points: basePoints,
+        });
+
+        // Summary numbers (matches your screenshot callout)
+        const delta26 = i26 - b26;
+        const ratio26 = i26 / b26;
+        const ratio6 = i6 / b6;
+
+        const summaryHTML = `
+    <div style="font-style:italic;color:var(--ink-dim);">
+      Layer 26 delta:
+      <span style="color:var(--accent-hot)">${fmt(i26, 1)}</span>
+      −
+      <span style="color:var(--accent-purple)">${fmt(b26, 1)}</span>
+      =
+      <strong style="color:var(--ink)">${fmt(delta26, 1)}</strong>
+      <span style="margin-left:28px;"></span>
+      Instruct / base ratio:
+      <strong style="color:var(--ink)">${fmt(ratio26, 1)}×</strong>
+      <br><br>
+      Layer 6 ratio:
+      <span style="color:var(--accent-cold)">${fmt(i6, 2)}</span>
+      /
+      <span style="color:rgba(176,110,200,0.9)">${fmt(b6, 1)}</span>
+      =
+      <strong style="color:var(--ink)">${fmt(ratio6, 2)}×</strong>
+      <span style="color:var(--ink-faint)">(base larger at entry)</span>
+    </div>
+  `;
+
+        sum.innerHTML = summaryHTML;
+        sumSbs.innerHTML = summaryHTML;
+
+        // Tooltips
+        attachTooltip(laneI);
+        attachTooltip(laneB);
+        attachTooltip(laneSbsI);
+        attachTooltip(laneSbsB);
+
+        // Mode visibility
+        const showI = mode === "both" || mode === "i";
+        const showB = mode === "both" || mode === "b";
+
+        laneI.style.display = showI ? "block" : "none";
+        laneB.style.display = showB ? "block" : "none";
+      }
+
+      function setNormView(view) {
+        const main = document.getElementById("ng-view-main");
+        const sbs = document.getElementById("ng-view-sbs");
+
+        const btnBoth = document.getElementById("ng-btn-both");
+        const btnI = document.getElementById("ng-btn-i");
+        const btnB = document.getElementById("ng-btn-b");
+        const btnSbs = document.getElementById("ng-btn-sbs");
+
+        [btnBoth, btnI, btnB, btnSbs].forEach(
+          (b) => b && b.classList.remove("act"),
+        );
+
+        if (view === "sbs") {
+          if (main) main.style.display = "none";
+          if (sbs) sbs.style.display = "block";
+          if (btnSbs) btnSbs.classList.add("act");
+          renderNormTrajectories("both");
+          return;
+        }
+
+        if (main) main.style.display = "block";
+        if (sbs) sbs.style.display = "none";
+
+        if (view === "both") {
+          if (btnBoth) btnBoth.classList.add("act");
+          renderNormTrajectories("both");
+        }
+        if (view === "i") {
+          if (btnI) btnI.classList.add("act");
+          renderNormTrajectories("i");
+        }
+        if (view === "b") {
+          if (btnB) btnB.classList.add("act");
+          renderNormTrajectories("b");
+        }
+      }
+
+      // Wire up buttons + initial render
+      (function initNormTrajectoryUI() {
+        const btnBoth = document.getElementById("ng-btn-both");
+        const btnI = document.getElementById("ng-btn-i");
+        const btnB = document.getElementById("ng-btn-b");
+        const btnSbs = document.getElementById("ng-btn-sbs");
+
+        if (!btnBoth || !btnI || !btnB || !btnSbs) return;
+
+        btnBoth.addEventListener("click", () => setNormView("both"));
+        btnI.addEventListener("click", () => setNormView("i"));
+        btnB.addEventListener("click", () => setNormView("b"));
+        btnSbs.addEventListener("click", () => setNormView("sbs"));
+
+        setNormView("both");
+      })();
       // ── Interpolation from sampled layers to N=28 bars ──────────────────────────
       function interp(vals, layerIdx) {
         const layer = layerIdx + 1;
