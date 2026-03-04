@@ -1614,56 +1614,334 @@
         <h3>Norm Amplification Trajectory 
         <div class="ng">
           <div class="lvt">‖v*‖ Growth — Instruct vs Base (canonical)</div>
-          <div class="ntrack" id="ntrack">
-            <div class="nline"></div>
-            <div class="nfill-i" id="nfill-i"></div>
-            <div class="nfill-b" id="nfill-b"></div>
+
+          <!-- Lane: Instruct -->
+          <div style="margin-top: 18px">
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 9px;
+                letter-spacing: 0.18em;
+                color: var(--accent);
+                text-transform: uppercase;
+                margin-bottom: 20px;
+              "
+            >
+              ■ Instruct · ~47× amplification
+            </div>
+            <div style="position: relative; height: 28px" id="lane-i">
+              <!-- value labels above the line -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 14px;
+                  left: 0;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  color: var(--accent-cold);
+                  transform: translateX(-0%);
+                "
+              >
+                ‖3.65‖
+              </div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 14px;
+                  left: 50%;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  color: var(--accent);
+                  transform: translateX(-50%);
+                "
+              >
+                ‖49.8‖
+              </div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 14px;
+                  right: 0;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  color: var(--accent-hot);
+                  transform: translateX(0%);
+                "
+              >
+                ‖172.5‖
+              </div>
+              <!-- track line -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 4px;
+                  left: 0;
+                  right: 0;
+                  height: 2px;
+                  background: var(--rule);
+                "
+              ></div>
+              <div
+                id="nfill-i"
+                style="
+                  position: absolute;
+                  bottom: 4px;
+                  left: 0;
+                  height: 2px;
+                  background: linear-gradient(
+                    to right,
+                    var(--accent-cold),
+                    var(--accent-hot)
+                  );
+                  width: 0%;
+                  transition: width 1.2s ease;
+                "
+              ></div>
+              <!-- dots -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 50%;
+                  border: 2px solid var(--accent-cold);
+                  background: var(--bg);
+                  transform: translateX(-50%);
+                "
+              ></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 50%;
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 50%;
+                  border: 2px solid var(--accent);
+                  background: var(--bg);
+                  transform: translateX(-50%);
+                "
+              ></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 50%;
+                  border: 2px solid var(--accent-hot);
+                  background: var(--bg);
+                  transform: translateX(50%);
+                "
+              ></div>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 10px;
+                color: var(--ink-faint);
+                margin-top: 6px;
+              "
+            >
+              <span>Layer 6</span><span>Layer 19</span><span>Layer 26</span>
+            </div>
           </div>
+
+          <!-- Lane: Base -->
+          <div style="margin-top: 32px">
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 9px;
+                letter-spacing: 0.18em;
+                color: var(--accent-purple);
+                text-transform: uppercase;
+                margin-bottom: 20px;
+              "
+            >
+              ■ Base · ~17× amplification
+            </div>
+            <div style="position: relative; height: 28px" id="lane-b">
+              <!-- value labels above the line -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 14px;
+                  left: 0;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  color: rgba(176, 110, 200, 0.7);
+                  transform: translateX(0%);
+                "
+              >
+                ‖4.3‖
+              </div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 14px;
+                  left: 50%;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  color: var(--accent-purple);
+                  transform: translateX(-50%);
+                "
+              >
+                ‖26.3‖
+              </div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 14px;
+                  right: 0;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  color: var(--accent-purple);
+                  transform: translateX(0%);
+                "
+              >
+                ‖72.8‖
+              </div>
+              <!-- track line -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 4px;
+                  left: 0;
+                  right: 0;
+                  height: 2px;
+                  background: var(--rule);
+                "
+              ></div>
+              <div
+                id="nfill-b"
+                style="
+                  position: absolute;
+                  bottom: 4px;
+                  left: 0;
+                  height: 2px;
+                  background: linear-gradient(
+                    to right,
+                    rgba(176, 110, 200, 0.4),
+                    var(--accent-purple)
+                  );
+                  width: 0%;
+                  transition: width 1.4s ease;
+                "
+              ></div>
+              <!-- dots -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 50%;
+                  border: 2px solid var(--accent-purple);
+                  background: var(--bg);
+                  transform: translateX(-50%);
+                  opacity: 0.6;
+                "
+              ></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 50%;
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 50%;
+                  border: 2px solid var(--accent-purple);
+                  background: var(--bg);
+                  transform: translateX(-50%);
+                "
+              ></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  width: 10px;
+                  height: 10px;
+                  border-radius: 50%;
+                  border: 2px solid var(--accent-purple);
+                  background: var(--bg);
+                  transform: translateX(50%);
+                "
+              ></div>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 10px;
+                color: var(--ink-faint);
+                margin-top: 6px;
+              "
+            >
+              <span>Layer 6</span><span>Layer 19</span><span>Layer 26</span>
+            </div>
+          </div>
+
+          <!-- Delta callout -->
           <div
             style="
+              margin-top: 24px;
+              padding: 14px 18px;
+              background: var(--bg-lift);
+              border: 1px solid var(--rule);
               display: flex;
-              justify-content: space-between;
-              font-family: &quot;JetBrains Mono&quot;, monospace;
-              font-size: 11px;
-              color: var(--ink-dim);
-              margin-top: 10px;
+              gap: 32px;
+              flex-wrap: wrap;
+              align-items: center;
             "
           >
-            <span
-              >Layer 6 · <span style="color: var(--accent-cold)">‖3.65‖</span> /
-              <span style="color: var(--accent-purple)">‖4.3‖</span></span
-            >
-            <span style="color: var(--ink-faint)"
-              >· · · amplification · · ·</span
-            >
-            <span
-              >Layer 26 ·
-              <span style="color: var(--accent-hot)">‖172.5‖</span> /
-              <span style="color: var(--accent-purple)">‖72.8‖</span></span
-            >
-          </div>
-          <div
-            style="margin-top: 12px; display: flex; gap: 20px; flex-wrap: wrap"
-          >
             <div
               style="
                 font-family: &quot;JetBrains Mono&quot;, monospace;
                 font-size: 11px;
+                color: var(--ink-dim);
               "
             >
-              <span style="color: var(--accent)">■</span> Instruct: ~47×
-              amplification
+              Layer 26 delta:
+              <span style="color: var(--accent-hot)">172.5</span> −
+              <span style="color: var(--accent-purple)">72.8</span> =
+              <strong style="color: var(--ink)">99.7</strong>
             </div>
             <div
               style="
                 font-family: &quot;JetBrains Mono&quot;, monospace;
                 font-size: 11px;
+                color: var(--ink-dim);
               "
             >
-              <span style="color: var(--accent-purple)">■</span> Base: ~17×
-              amplification
+              Instruct / base ratio:
+              <strong style="color: var(--ink)">2.4×</strong>
+            </div>
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 11px;
+                color: var(--ink-dim);
+              "
+            >
+              Layer 6 ratio:
+              <span style="color: var(--accent-cold)">3.65</span> /
+              <span style="color: var(--accent-purple)">4.3</span> =
+              <strong style="color: var(--ink)">0.85×</strong>
+              <span style="color: var(--ink-faint)"
+                >(base larger at entry)</span
+              >
             </div>
           </div>
+
           <p
             style="
               font-size: 14px;
@@ -1675,9 +1953,10 @@
             Both models show monotonic growth to Layer 26. The instruct model's
             trajectory is substantially steeper, indicating that instruction
             tuning <em>amplifies</em> the architectural gain structure rather
-            than creating it from scratch. The ratio at Layer 6 is actually
-            <em>reversed</em> (base is slightly larger), suggesting the
-            difference accumulates through intermediate layers.
+            than creating it from scratch. Notably, the base model's Layer 6
+            norm is slightly <em>larger</em> than the instruct model's (4.3 vs
+            3.65) — the divergence accumulates through intermediate layers, not
+            at the entry point.
           </p>
         </div>
 
